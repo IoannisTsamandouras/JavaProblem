@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -19,7 +19,7 @@ public class Song {
 	@NotNull(message = "Title may not be null")
 	private String title;
 	
-	@PastOrPresent
+	@Past
 	private Date date;
 	
 	@NotEmpty(message = "Artist name must not be empty")
