@@ -3,13 +3,32 @@ package com.demo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Song {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
+public class Song {
+	
+	@NotNull(message = "Code may not be null")
+	@Size(max = 12, message = "Code must not be more than 12 characters long") 
 	private static String code;
+	
+	@NotNull(message = "Title may not be null")
 	private String title;
+	
+	@PastOrPresent
 	private Date date;
+	
+	@NotEmpty(message = "Artist name must not be empty")
 	private String artistName;
+	
+	@Positive
 	private BigDecimal sales;
+	
+	@NotBlank
 	private static String barcode;
 
 	public Song(String code, String title, Date date, String artistName) {
@@ -70,6 +89,9 @@ public class Song {
 	}
 
 	public void setArtistName(String artistName) {
+		if(artistName == null ){
+            throw new NullPointerException("Artist name can't be null");
+        }
 		this.artistName = artistName;
 	}
 
@@ -78,7 +100,7 @@ public class Song {
 	}
 
 	public void setSales(BigDecimal sales) throws IllegalArgumentException {
-		if (sales.compareTo(BigDecimal.ZERO) < 0 ) {
+		if (sales.compareTo(BigDecimal.ZERO) <= 0 ) {
 		      throw new IllegalArgumentException("The value must be positive");
 		    }
 		this.sales = sales;
@@ -128,13 +150,20 @@ public class Song {
 			if (other.sales != null)
 				return false;
 		} else if (!sales.equals(other.sales))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
+			return false;		
 		return true;
+	}
+	
+	static class RockSong {
+		
+	}
+	
+	static class PopSong {
+		
+	}
+	
+	static class LoveSong {
+		
 	}
 
 }
